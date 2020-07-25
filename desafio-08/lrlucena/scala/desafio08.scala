@@ -1,24 +1,15 @@
 import scala.io.StdIn._
 
-def mdc(a: Int, b: Int): Int = (a, b) match {
-  case (0, b)          => b
-  case (a, b) if a > b => mdc(a % b, b)
-  case (a, b) if a < b => mdc(b, a)
-}
+def mdc(a: Int, b: Int): Int = if (a == 0) b else mdc(b % a, a)
 
-def simplificar(a: Int, b: Int): String = {
-  val m = mdc(a % b, b)
-  if (m == b) {
-    s"${a / m}"
-  } else if (a > b) {
-    val c = a / b
-    s"${c} ${(a % b) / m}/${b / m}"
-  } else {
-    s"${a / m}/${b / m}"
-  }
+def simplificar(a: Int, b: Int = 1): String = {
+  val (c, d) = (a / b, a % b)
+  val m = mdc(d, b)
+  (if (c == 0) "" else s"${c} ") + (if (d == 0) "" else s"${d / m}/${b / m}")
 }
 
 var entrada = readLine()
+
 while (entrada != null) {
   entrada.split("/").map(_.toInt).toList match {
     case List(a)    => println(a)
