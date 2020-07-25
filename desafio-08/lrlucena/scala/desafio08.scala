@@ -1,3 +1,5 @@
+import scala.io.StdIn._
+
 def mdc(a: Int, b: Int): Int = if (a == 0) b else mdc(b % a, a)
 
 def simplificar(a: Int, b: Int = 1): String = {
@@ -6,12 +8,13 @@ def simplificar(a: Int, b: Int = 1): String = {
   (if (c == 0) "" else s"${c} ") + (if (d == 0) "" else s"${d / m}/${b / m}")
 }
 
-var entrada = scala.io.StdIn.readLine()
+var entrada = readLine()
+
 while (entrada != null) {
   entrada.split("/").map(_.toInt).toList match {
     case List(a)    => println(a)
     case List(a, 0) => println("ERR")
     case List(a, b) => println(simplificar(a, b))
   }
-  entrada = scala.io.StdIn.readLine()
+  entrada = readLine()
 }
